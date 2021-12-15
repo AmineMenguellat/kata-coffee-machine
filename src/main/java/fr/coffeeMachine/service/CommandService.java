@@ -6,7 +6,7 @@ import fr.coffeeMachine.command.OrderType;
 public class CommandService implements CommandServiceInt {
 
 	private Order order;
-	private String makerCommand;
+	private String makerCommand= "";
 	private NotificationInt notificationInt;
 	private String messageNotification;
 
@@ -40,9 +40,15 @@ public class CommandService implements CommandServiceInt {
 	}
 
 	@Override
-	public void command() {
+	public void command(Double price) {
+		Boolean orderAuthorized = priceCheck(order.getType(), price);
+		if(!orderAuthorized) {
+			messageNotification = notificationInt.sendMessage(order,price,TypeMessage.FAIL);
+			return;
+		}
+		
 		makerCommand = convertToMakerCommand(order);
-		messageNotification = getClientMessage();
+		messageNotification = notificationInt.sendMessage(order,price,TypeMessage.SUCCES);
 	}
 
 	public String getMakerCommand() {
@@ -60,9 +66,6 @@ public class CommandService implements CommandServiceInt {
 		return order.getType().code + ":" + infoSugar + ":" + infoStick;
 	}
 
-	public String getClientMessage() {
-		return notificationInt.sendMessage(order);
-	}
 
 	public String getMessageNotification() {
 		return messageNotification;
@@ -78,5 +81,18 @@ public class CommandService implements CommandServiceInt {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	@Override
+	public Boolean priceCheck(OrderType orderType, Double price) {
+		return price >= orderType.price;
+	}
+
+	public NotificationInt getNotificationInt() {
+		return notificationInt;
+	}
+
+	public void setNotificationInt(NotificationInt notificationInt) {
+		this.notificationInt = notificationInt;
 	}
 }

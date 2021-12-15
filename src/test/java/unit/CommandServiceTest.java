@@ -129,4 +129,55 @@ public class CommandServiceTest {
 		String actualMessage = commandService.convertToMakerCommand(order);
 		assertEquals(expectedMessage, actualMessage);
 	}
+	
+	@Test
+	public void priceCheck_chocolate_lower_price () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.CHOCOLATE,0.4);
+		assertEquals(false, orderAuthorized);
+	}
+	
+	@Test
+	public void priceCheck_chocolate_exact_price () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.CHOCOLATE,0.5);
+		assertEquals(true, orderAuthorized);
+	}
+	@Test
+	public void priceCheck_chocolate_higher_price  () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.CHOCOLATE,0.8);
+		assertEquals(true, orderAuthorized);
+	}
+	@Test
+	public void priceCheck_coffee_lower_price () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.COFFEE,0.5);
+		assertEquals(false, orderAuthorized);
+	}
+	
+	@Test
+	public void priceCheck_coffee_exact_price () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.COFFEE,0.6);
+		assertEquals(true, orderAuthorized);
+	}
+	@Test
+	public void priceCheck_cofee_higher_price  () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.COFFEE,0.8);
+		assertEquals(true, orderAuthorized);
+	}
+	
+	@Test
+	public void priceCheck_tea_lower_price () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.TEA,0.3);
+		assertEquals(false, orderAuthorized);
+	}
+	
+	@Test
+	public void priceCheck_tea_exact_price () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.TEA,0.4);
+		assertEquals(true, orderAuthorized);
+	}
+	@Test
+	public void priceCheck_tea_higher_price  () {
+		Boolean orderAuthorized =  commandService.priceCheck(OrderType.TEA,0.6);
+		assertEquals(true, orderAuthorized);
+	}
+	
 }

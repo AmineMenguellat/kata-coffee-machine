@@ -24,10 +24,10 @@ public class CommandServiceStep {
 	public void i_want_to_add_sugar_to_my_order(String sugar) {
 		commandService.addSugar(Integer.parseInt(sugar));
 	}
-
-	@When("I confirm my order")
-	public void i_confirm_my_order() {
-		commandService.command();
+	
+	@When("I pay my order with the {string}")
+	public void i_pay_my_order_with_the(String price) {
+		commandService.command(Double.parseDouble(price));
 	}
 
 	@Then("my order {string} has been transferred")
@@ -59,7 +59,7 @@ public class CommandServiceStep {
 
 	@Then("the client receives the message {string}")
 	public void the_client_receives_the_message(String expectedClientMessage) {
-		String actuelClientMessage = commandService.getClientMessage();
+		String actuelClientMessage = commandService.getMessageNotification();
 		assertEquals(expectedClientMessage, actuelClientMessage);
 	}
 }

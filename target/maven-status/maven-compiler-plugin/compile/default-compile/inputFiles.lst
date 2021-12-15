@@ -1,5 +1,8 @@
-C:\newWorkSpace\coffee-machine\src\main\java\fr\coffee\Launcher.java
-C:\newWorkSpace\coffee-machine\src\main\java\fr\coffee\service\CommandServiceInt.java
-C:\newWorkSpace\coffee-machine\src\main\java\fr\coffee\command\Order.java
-C:\newWorkSpace\coffee-machine\src\main\java\fr\coffee\service\CommandService.java
-C:\newWorkSpace\coffee-machine\src\main\java\fr\coffee\command\OrderType.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\exceptions\UnknownProductException.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\command\OrderType.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\command\Order.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\service\CommandServiceInt.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\service\NotificationInt.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\service\NotificationService.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\service\CommandService.java
+C:\newWorkSpace\coffee-machine\src\main\java\fr\coffeeMachine\service\TypeMessage.java
