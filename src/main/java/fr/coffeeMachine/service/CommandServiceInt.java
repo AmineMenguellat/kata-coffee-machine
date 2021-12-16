@@ -1,5 +1,7 @@
 package fr.coffeeMachine.service;
 
+import fr.coffeeMachine.command.OrderType;
+
 public interface CommandServiceInt {
 	
 	/**
@@ -18,6 +20,10 @@ public interface CommandServiceInt {
 	 * this method is used to confirm my order
 	 * and notify the customer that his order is taken into account
 	 */
-	void command();
+	void command(Double price);
+	
+	Boolean priceCheck(OrderType orderType, Double price);
+	
+	void deliverExtraHot(Boolean extraHot);
 
 }

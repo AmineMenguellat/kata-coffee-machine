@@ -6,7 +6,7 @@ import fr.coffeeMachine.command.OrderType;
 public class CommandService implements CommandServiceInt {
 
 	private Order order;
-	private String makerCommand;
+	private String makerCommand= "";
 	private NotificationInt notificationInt;
 	private String messageNotification;
 
@@ -21,7 +21,7 @@ public class CommandService implements CommandServiceInt {
 
 	@Override
 	public void addSugar(Integer sugarQuantity) {
-		if (sugarQuantity == 0)
+		if (sugarQuantity == 0 || !order.getType().suggar)
 			return;
 		order.setSugar(sugarQuantity);
 		order.setStick(1);
@@ -40,9 +40,15 @@ public class CommandService implements CommandServiceInt {
 	}
 
 	@Override
-	public void command() {
+	public void command(Double price) {
+		Boolean orderAuthorized = priceCheck(order.getType(), price);
+		if(!orderAuthorized) {
+			messageNotification = notificationInt.sendMessage(order,price,TypeMessage.FAIL);
+			return;
+		}
+		
 		makerCommand = convertToMakerCommand(order);
-		messageNotification = getClientMessage();
+		messageNotification = notificationInt.sendMessage(order,price,TypeMessage.SUCCES);
 	}
 
 	public String getMakerCommand() {
@@ -57,12 +63,15 @@ public class CommandService implements CommandServiceInt {
 	public String convertToMakerCommand(Order order) {
 		String infoStick = order.getSugar() > 0 ? "0" : "";
 		String infoSugar = order.getSugar() > 0 ? order.getSugar().toString() : "";
-		return order.getType().code + ":" + infoSugar + ":" + infoStick;
+		String extraHot = order.getExtraHot() ? "h":"";
+		return order.getType().code
+				.concat(extraHot)
+				.concat(":" )
+				.concat(infoSugar )
+				.concat(":" )
+				.concat(infoStick);
 	}
 
-	public String getClientMessage() {
-		return notificationInt.sendMessage(order);
-	}
 
 	public String getMessageNotification() {
 		return messageNotification;
@@ -78,5 +87,23 @@ public class CommandService implements CommandServiceInt {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	@Override
+	public Boolean priceCheck(OrderType orderType, Double price) {
+		return price >= orderType.price;
+	}
+
+	public NotificationInt getNotificationInt() {
+		return notificationInt;
+	}
+
+	public void setNotificationInt(NotificationInt notificationInt) {
+		this.notificationInt = notificationInt;
+	}
+
+	public void deliverExtraHot(Boolean extraHot) {
+		if(order.getType().getExtraHot())
+		order.setExtraHot(extraHot);
 	}
 }

@@ -5,6 +5,7 @@ public class Order {
 	private OrderType type;
 	private Integer sugar = 0;
 	private Integer stick = 0;
+	private Boolean extraHot = false;
 	public Order(OrderType type) {
 		super();
 		this.type = type;
@@ -20,6 +21,14 @@ public class Order {
 		this.sugar = sugar;
 	}
 	
+	
+	public Order(OrderType type, Integer sugar, Boolean extraHot) {
+		super();
+		this.type = type;
+		this.sugar = sugar;
+		this.extraHot = extraHot;
+	}
+
 	public Order(OrderType type, Integer sugar, Integer stick) {
 		super();
 		this.type = type;
@@ -49,6 +58,14 @@ public class Order {
 
 	public void setType(OrderType type) {
 		this.type = type;
+	}
+
+	public Boolean getExtraHot() {
+		return extraHot;
+	}
+
+	public void setExtraHot(Boolean extraHot) {
+		this.extraHot = extraHot;
 	}
 	
 }

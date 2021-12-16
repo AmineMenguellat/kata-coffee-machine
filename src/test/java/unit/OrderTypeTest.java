@@ -23,6 +23,10 @@ public class OrderTypeTest {
 		assertEquals(OrderType.COFFEE, OrderType.getOrderTypeByName("coffee"));
 	}
 
+	@Test
+	public void orderTypeOrangeJuice() {
+		assertEquals(OrderType.ORANGE_JUICE, OrderType.getOrderTypeByName("orange juice"));
+	}
 	@Test(expected = UnknownProductException.class)
 	public void unknownProductExceptionTest() {
 		OrderType.getOrderTypeByName("unknown");
